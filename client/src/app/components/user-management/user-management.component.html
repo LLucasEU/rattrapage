@@ -1,0 +1,129 @@
+<div class="user-management-container">
+  <div class="header">
+    <h1>Gestion des Utilisateurs</h1>
+    <p>Gérez les utilisateurs de l'application et leurs rôles</p>
+  </div>
+
+  <div class="messages">
+    <div class="success-message" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="loading-container" *ngIf="loading">
+      <div class="loading-spinner"></div>
+      <p>Chargement en cours...</p>
+    </div>
+
+    <div class="users-table-container" *ngIf="!loading">
+      <div class="table-header">
+        <h2>Liste des Utilisateurs ({{ users.length }})</h2>
+        <button
+          class="refresh-button"
+          (click)="loadUsers()"
+          [disabled]="loading"
+        >
+          🔄 Actualiser
+        </button>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="users-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nom d'utilisateur</th>
+              <th>Email</th>
+              <th>Rôle</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let user of users"
+              [class.current-user]="currentUser?.id === user.id"
+            >
+              <td>{{ user.id }}</td>
+              <td>
+                <div class="user-info">
+                  <div class="user-avatar">
+                    {{ user.username.charAt(0).toUpperCase() }}
+                  </div>
+                  <span class="username">{{ user.username }}</span>
+                  <span
+                    class="current-user-badge"
+                    *ngIf="currentUser?.id === user.id"
+                    >(Vous)</span
+                  >
+                </div>
+              </td>
+              <td>{{ user.email }}</td>
+              <td>
+                <div class="role-cell">
+                  <span
+                    class="role-badge"
+                    [class.admin-role]="user.role === 'ADMIN'"
+                  >
+                    {{ getRoleDisplayName(user.role) }}
+                  </span>
+                  <select
+                    *ngIf="canModifyUser(user)"
+                    [value]="user.role"
+                    (change)="onRoleChange(user.id, $event)"
+                    class="role-select"
+                    [disabled]="loading"
+                  >
+                    <option value="USER">Utilisateur</option>
+                    <option value="ADMIN">Administrateur</option>
+                  </select>
+                  <span class="no-modify" *ngIf="!canModifyUser(user)">
+                    Non modifiable
+                  </span>
+                </div>
+              </td>
+              <td>
+                <div class="actions">
+                  <button
+                    *ngIf="canDeleteUser(user)"
+                    class="delete-button"
+                    (click)="deleteUser(user.id)"
+                    [disabled]="loading"
+                    title="Supprimer l'utilisateur"
+                  >
+                    🗑️
+                  </button>
+                  <span class="no-delete" *ngIf="!canDeleteUser(user)">
+                    -
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="no-users" *ngIf="users.length === 0 && !loading">
+        <p>Aucun utilisateur trouvé</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats" *ngIf="!loading && users.length > 0">
+    <div class="stat-card">
+      <h3>Total</h3>
+      <p class="stat-number">{{ users.length }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Administrateurs</h3>
+      <p class="stat-number">{{ getAdminCount() }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Utilisateurs</h3>
+      <p class="stat-number">{{ getUserCount() }}</p>
+    </div>
+  </div>
+</div>

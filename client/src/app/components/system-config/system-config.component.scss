@@ -1,0 +1,135 @@
+@import '../../../_theme';
+
+.system-config-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(44,62,80,0.10);
+  padding: 2.5rem 2rem;
+  color: #222;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 0;
+  label {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+    margin-bottom: 0.2em;
+  }
+  .help-text {
+    display: block;
+    font-size: 0.98rem;
+    color: #666;
+    margin-top: 0.2em;
+    margin-left: 2em;
+  }
+}
+
+select, input[type="checkbox"] {
+  margin-left: 0.5em;
+}
+
+button[type="submit"] {
+  align-self: flex-end;
+}
+
+.rgaa-info {
+  margin-top: 2.5rem;
+  background: #f6f6f6;
+  border-radius: 8px;
+  padding: 1.2rem 1rem;
+  font-size: 1rem;
+  a {
+    color: #007bff;
+    text-decoration: underline;
+  }
+}
+@media (max-width: 700px) {
+  .system-config-container {
+    padding: 1.2rem 0.5rem;
+  }
+}
+
+body.color-blind, .color-blind {
+  background: #{$colorblind-background} !important;
+  color: #{$colorblind-text} !important;
+}
+body.color-blind .system-config-container, .color-blind .system-config-container {
+  background: #{$colorblind-card} !important;
+  color: #{$colorblind-text} !important;
+  border: 2px solid #{$colorblind-border} !important;
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15) !important;
+}
+body.color-blind .btn-primary, .color-blind .btn-primary {
+  background: #{$colorblind-primary} !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 102, 204, 0.2) !important;
+}
+body.color-blind .btn-primary:hover, .color-blind .btn-primary:hover {
+  background: #0052a3 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(0, 102, 204, 0.3) !important;
+}
+body.color-blind a, .color-blind a {
+  color: #{$colorblind-primary} !important;
+}
+body.color-blind a:hover, .color-blind a:hover {
+  color: #{$colorblind-secondary} !important;
+}
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: local('OpenDyslexic'), url('https://cdn.jsdelivr.net/npm/open-dyslexic-fonts@1.0.0/otf/OpenDyslexic-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body.dyslexia-font, .dyslexia-font {
+  font-family: 'OpenDyslexic', Arial, Verdana, sans-serif !important;
+  letter-spacing: 0.03em;
+}
+
+body.letter-spacing-wide, .letter-spacing-wide {
+  letter-spacing: 0.05em !important;
+}
+
+body.letter-spacing-extra-wide, .letter-spacing-extra-wide {
+  letter-spacing: 0.1em !important;
+}
+
+body.line-spacing-wide, .line-spacing-wide {
+  line-height: 1.8 !important;
+}
+
+body.line-spacing-extra-wide, .line-spacing-extra-wide {
+  line-height: 2.2 !important;
+}
+
+body.dyslexia-font.letter-spacing-wide {
+  letter-spacing: 0.08em !important;
+}
+
+body.dyslexia-font.letter-spacing-extra-wide {
+  letter-spacing: 0.13em !important;
+}
+
+body.dyslexia-font.line-spacing-wide {
+  line-height: 2.0 !important;
+}
+
+body.dyslexia-font.line-spacing-extra-wide {
+  line-height: 2.4 !important;
+}

@@ -1,0 +1,112 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">🎬 Projet de rattrapage – Gérez vos films, vos envies, vos stats</h1>
+      <p class="hero-subtitle">
+        Suivez vos films vus et à voir, analysez vos habitudes, exportez vos listes, et profitez d’une interface moderne, accessible et sécurisée.
+      </p>
+      <div class="hero-buttons" *ngIf="!isLoggedIn">
+        <button class="btn btn-primary" (click)="goToLogin()">
+          <span class="btn-icon">🔐</span>
+          Se connecter
+        </button>
+        <button class="btn btn-secondary" (click)="goToRegister()">
+          <span class="btn-icon">📝</span>
+          S'inscrire
+        </button>
+      </div>
+      <div class="hero-buttons" *ngIf="isLoggedIn">
+        <button class="btn btn-primary" (click)="goToDashboard()">
+          <span class="btn-icon">📊</span>
+          Accéder à mon espace
+        </button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="floating-card">
+        <span class="card-icon">🍿</span>
+        <h3>Votre cinémathèque intelligente</h3>
+        <p>Statistiques, listes, accessibilité, export… tout en un !</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-section">
+    <div class="container">
+      <h2 class="section-title">Fonctionnalités phares</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📋</div>
+          <h3>Listes de films</h3>
+          <p>Ajoutez, organisez et retrouvez vos films à voir et déjà vus.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Statistiques visuelles</h3>
+          <p>Graphiques interactifs : genres préférés, films vus par mois, etc.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">♿</div>
+          <h3>Accessibilité RGAA</h3>
+          <p>Contraste élevé, taille de police, alternatives visuelles, mode sombre.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⬇️</div>
+          <h3>Export Excel & PDF</h3>
+          <p>Exportez vos listes et statistiques en un clic (Excel, PDF).</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Sécurité & confidentialité</h3>
+          <p>Comptes protégés, données personnelles sécurisées, accès restreint.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tech-section">
+    <div class="container">
+      <h2 class="section-title">Technologies</h2>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <div class="tech-icon">🟢</div>
+          <span>Spring Boot</span>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon">🔵</div>
+          <span>Angular</span>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon">🟣</div>
+          <span>JWT</span>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon">🟡</div>
+          <span>ng2-charts</span>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon">🟠</div>
+          <span>Apache POI</span>
+        </div>
+        <div class="tech-item">
+          <div class="tech-icon">🔴</div>
+          <span>jsPDF</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" *ngIf="!isLoggedIn">
+    <div class="container">
+      <h2>Prêt à commencer ?</h2>
+      <p>Inscrivez-vous et découvrez toutes les fonctionnalités de Rattrapage.</p>
+      <div class="cta-buttons">
+        <button class="btn btn-primary" (click)="goToRegister()">
+          <span class="btn-icon">🚀</span>
+          Commencer maintenant
+        </button>
+      </div>
+    </div>
+  </section>
+</div>

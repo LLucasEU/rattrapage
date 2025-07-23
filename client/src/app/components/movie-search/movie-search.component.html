@@ -1,0 +1,164 @@
+<div class="movie-search-container">
+  <div class="header">
+    <h1>🎬 Recherche de Films</h1>
+    <p>Découvrez et gérez votre collection de films</p>
+  </div>
+
+  <div class="messages">
+    <div class="success-message" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+  </div>
+
+  <div class="search-section">
+    <div class="search-container">
+      <div class="search-input-wrapper">
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          (input)="onSearch()"
+          placeholder="Rechercher un film..."
+          class="search-input"
+          [disabled]="loading"
+        />
+        <button class="search-button" (click)="onSearch()" [disabled]="loading">
+          🔍
+        </button>
+      </div>
+      <button
+        class="clear-button"
+        (click)="clearSearch()"
+        *ngIf="searchQuery"
+        [disabled]="loading"
+      >
+        ✕ Effacer
+      </button>
+    </div>
+  </div>
+
+  <app-movie-filters
+    [showFilters]="showFilters"
+    (filtersChanged)="onFiltersChanged($event)"
+    (filtersCleared)="onFiltersCleared()"
+  ></app-movie-filters>
+
+  <div class="content">
+    <app-movie-watched-form
+      [movie]="selectedMovie"
+      [showModal]="showWatchedForm"
+      (submitForm)="onWatchedFormSubmit($event)"
+      (closeModal)="closeWatchedForm()"
+    ></app-movie-watched-form>
+    <div class="loading-container" *ngIf="loading">
+      <div class="loading-spinner"></div>
+      <p>Recherche en cours...</p>
+    </div>
+
+    <div class="movies-grid" *ngIf="!loading">
+      <div class="movies-header" *ngIf="movies.length > 0">
+        <h2>
+          <span *ngIf="searchQuery">Résultats pour "{{ searchQuery }}"</span>
+          <span *ngIf="!searchQuery">Films Populaires</span>
+          ({{ movies.length }} film{{ movies.length > 1 ? "s" : "" }})
+        </h2>
+      </div>
+
+      <div class="movies-container">
+        <div class="movie-card" *ngFor="let movie of movies">
+          <div class="movie-actions" style="margin-bottom: 0.5rem; display: flex; gap: 1rem; justify-content: center;">
+                <button
+                  class="action-button watchlist-button"
+                  [class.disabled]="isInWatchlist(movie) || isWatched(movie)"
+                  [disabled]="isInWatchlist(movie) || isWatched(movie)"
+                  (click)="addToWatchlist(movie)"
+                  [title]="
+                    isInWatchlist(movie)
+                      ? 'Déjà dans votre liste à voir'
+                      : isWatched(movie)
+                        ? 'Déjà vu'
+                        : 'Ajouter à ma liste de films à voir'
+                  "
+                >
+                  {{
+                    isInWatchlist(movie)
+                      ? "✅ Dans la liste"
+                      : isWatched(movie)
+                        ? "Déjà vu"
+                        : "📋 À voir"
+                  }}
+                </button>
+                <button
+                  class="action-button watched-button"
+                  [class.disabled]="isWatched(movie)"
+                  [disabled]="isWatched(movie)"
+                  (click)="markAsWatched(movie)"
+                  [title]="
+                    isWatched(movie)
+                      ? 'Déjà marqué comme vu'
+                      : 'Ajouter à ma liste de films vus'
+                  "
+                >
+                  {{ isWatched(movie) ? "✅ Vu" : "✅ Vu" }}
+                </button>
+              </div>
+          <div class="movie-poster">
+            <img
+              [src]="getPosterUrl(movie.posterPath)"
+              [alt]="movie.title"
+              class="poster-image"
+              (error)="onImageError($event)"
+            />
+          </div>
+          <div class="movie-info">
+            <div class="movie-header">
+              <h3 class="movie-title">{{ movie.title }}</h3>
+              <div class="movie-rating" *ngIf="movie.voteAverage > 0">
+                <span
+                  class="rating-score"
+                  [style.color]="getRatingColor(movie.voteAverage)"
+                >
+                  ⭐ {{ movie.voteAverage.toFixed(1) }}
+                </span>
+                <span class="rating-count">({{ movie.voteCount }})</span>
+              </div>
+            </div>
+
+            <div class="movie-meta">
+              <span class="release-date" *ngIf="movie.releaseDate">
+                📅 {{ formatDate(movie.releaseDate) }}
+              </span>
+              <span class="language" *ngIf="movie.originalLanguage">
+                🌍 {{ movie.originalLanguage.toUpperCase() }}
+              </span>
+            </div>
+
+            <p class="movie-overview" *ngIf="movie.overview">
+              {{ truncateText(movie.overview, 150) }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="no-movies" *ngIf="movies.length === 0 && !loading">
+        <div class="no-movies-content">
+          <div class="no-movies-icon">🎬</div>
+          <h3>Aucun film trouvé</h3>
+          <p *ngIf="searchQuery">
+            Aucun film ne correspond à votre recherche "{{ searchQuery }}"
+          </p>
+          <p *ngIf="!searchQuery">Impossible de charger les films populaires</p>
+          <button
+            class="retry-button"
+            (click)="loadPopularMovies()"
+            *ngIf="!searchQuery"
+          >
+            🔄 Réessayer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<div class="filters-container">
+  <div class="filters-toggle">
+    <button
+      class="toggle-button"
+      (click)="toggleFilters()"
+      [class.active]="showFilters"
+    >
+      🔍 Filtres
+      <span class="filter-count" *ngIf="getActiveFiltersCount() > 0">
+        ({{ getActiveFiltersCount() }})
+      </span>
+      <span class="toggle-icon">{{ showFilters ? "▼" : "▶" }}</span>
+    </button>
+  </div>
+
+  <div class="filters-panel" *ngIf="showFilters">
+    <div class="filters-content">
+      <div class="filter-group">
+        <label class="filter-label">Note minimum :</label>
+        <select
+          class="filter-select"
+          [(ngModel)]="filters.minRating"
+          (change)="onFilterChange()"
+        >
+          <option *ngFor="let option of ratingOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Date de sortie (début) :</label>
+        <input
+          type="date"
+          class="filter-input"
+          [(ngModel)]="filters.startDate"
+          (change)="onFilterChange()"
+        />
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Date de sortie (fin) :</label>
+        <input
+          type="date"
+          class="filter-input"
+          [(ngModel)]="filters.endDate"
+          (change)="onFilterChange()"
+        />
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Trier par :</label>
+        <div class="sort-controls">
+          <select
+            class="filter-select"
+            [(ngModel)]="filters.sortBy"
+            (change)="onFilterChange()"
+          >
+            <option *ngFor="let option of sortOptions" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+          <button
+            class="sort-order-button"
+            (click)="
+              filters.sortOrder = filters.sortOrder === 'asc' ? 'desc' : 'asc';
+              onFilterChange()
+            "
+            [title]="
+              filters.sortOrder === 'asc'
+                ? 'Ordre croissant'
+                : 'Ordre décroissant'
+            "
+          >
+            {{ filters.sortOrder === "asc" ? "↑" : "↓" }}
+          </button>
+        </div>
+      </div>
+
+      <div class="filter-actions">
+        <button
+          class="clear-button"
+          (click)="clearFilters()"
+          *ngIf="getActiveFiltersCount() > 0"
+        >
+          🗑️ Effacer les filtres
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

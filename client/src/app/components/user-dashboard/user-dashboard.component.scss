@@ -1,0 +1,171 @@
+@import '../../../_theme';
+
+.dashboard-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding-top: 20px;
+}
+
+.dashboard-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.user-card {
+  @extend .card;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  .avatar-text {
+    color: white;
+    font-size: 32px;
+    font-weight: 600;
+  }
+}
+
+.user-details {
+  h2 {
+    @extend .title-md;
+    margin: 0 0 8px 0;
+  }
+  .user-email {
+    color: #666;
+    font-size: 16px;
+    margin: 0 0 8px 0;
+  }
+  .user-role {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+}
+
+.dashboard-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.section-card {
+  @extend .card;
+  text-align: center;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-5px);
+  }
+  h3 {
+    @extend .title-md;
+    margin-bottom: 15px;
+  }
+  p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .section-button {
+    @extend .btn;
+    @extend .btn-primary;
+    font-size: 16px;
+    padding: 12px 24px;
+    margin-top: 10px;
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+  }
+}
+
+body.color-blind .dashboard-container {
+  background: linear-gradient(135deg, #{$colorblind-primary} 0%, #{$colorblind-secondary} 100%) !important;
+}
+
+body.color-blind .user-card {
+  background: #{$colorblind-card} !important;
+  color: #{$colorblind-text} !important;
+  border: 2px solid #{$colorblind-border} !important;
+  box-shadow: 0 10px 30px rgba(0, 102, 204, 0.15) !important;
+}
+
+body.color-blind .user-avatar {
+  background: linear-gradient(135deg, #{$colorblind-primary} 0%, #{$colorblind-secondary} 100%) !important;
+}
+
+body.color-blind .user-details h2 {
+  color: #{$colorblind-text} !important;
+}
+
+body.color-blind .user-details .user-email {
+  color: #666 !important;
+}
+
+body.color-blind .user-details .user-role {
+  background: linear-gradient(135deg, #{$colorblind-primary} 0%, #{$colorblind-secondary} 100%) !important;
+  color: white !important;
+}
+
+body.color-blind .section-card {
+  background: #{$colorblind-card} !important;
+  color: #{$colorblind-text} !important;
+  border: 2px solid #{$colorblind-border} !important;
+  box-shadow: 0 10px 30px rgba(0, 102, 204, 0.15) !important;
+}
+
+body.color-blind .section-card h3 {
+  color: #{$colorblind-text} !important;
+}
+
+body.color-blind .section-card p {
+  color: #666 !important;
+}
+
+body.color-blind .section-button {
+  background: linear-gradient(135deg, #{$colorblind-primary} 0%, #{$colorblind-secondary} 100%) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2) !important;
+}
+
+body.color-blind .section-button:hover {
+  box-shadow: 0 8px 25px rgba(0, 102, 204, 0.3) !important;
+}
+
+@media (max-width: 768px) {
+  .user-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .dashboard-sections {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  .dashboard-content {
+    padding: 10px 2px;
+  }
+  .user-card {
+    padding: 10px;
+  }
+  .section-card {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+}

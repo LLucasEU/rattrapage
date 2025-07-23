@@ -1,0 +1,90 @@
+<div class="modal-overlay" *ngIf="showModal" (click)="onBackdropClick($event)">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>🎬 Marquer comme vu</h2>
+      <button class="close-button" (click)="onClose()">✕</button>
+    </div>
+
+    <div class="modal-body" *ngIf="movie">
+      <div class="movie-info">
+        <div class="movie-poster">
+          <img
+            [src]="
+              movie.posterPath
+                ? 'https://image.tmdb.org/t/p/w200' + movie.posterPath
+                : 'assets/images/no-poster.jpg'
+            "
+            [alt]="movie.title"
+            class="poster-image"
+          />
+        </div>
+        <div class="movie-details">
+          <h3>{{ movie.title }}</h3>
+          <p class="movie-year" *ngIf="movie.releaseDate">
+            {{ getReleaseYear(movie.releaseDate) }}
+          </p>
+          <div class="movie-rating" *ngIf="movie.voteAverage > 0">
+            <span class="rating-score">
+              ⭐ {{ movie.voteAverage.toFixed(1) }}/10
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" class="watched-form">
+        <div class="form-group">
+          <label for="watchedDate" class="form-label">
+            📅 Date de visionnage
+          </label>
+          <input
+            type="date"
+            id="watchedDate"
+            [(ngModel)]="formData.watchedDate"
+            name="watchedDate"
+            class="form-input"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="personalRating" class="form-label">
+            ⭐ Votre note personnelle
+          </label>
+          <select
+            id="personalRating"
+            [(ngModel)]="formData.personalRating"
+            name="personalRating"
+            class="form-select"
+          >
+            <option *ngFor="let option of ratingOptions" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="comment" class="form-label">
+            💭 Votre avis (optionnel)
+          </label>
+          <textarea
+            id="comment"
+            [(ngModel)]="formData.comment"
+            name="comment"
+            class="form-textarea"
+            placeholder="Partagez votre avis sur ce film..."
+            rows="4"
+          ></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="cancel-button" (click)="onClose()">
+            Annuler
+          </button>
+          <button type="submit" class="submit-button">
+            ✅ Marquer comme vu
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

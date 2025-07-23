@@ -1,0 +1,38 @@
+<div class="dashboard-container">
+  <div class="dashboard-content">
+    <div class="user-card">
+      <div class="user-avatar">
+        <span class="avatar-text">{{ getUserAvatar() }}</span>
+      </div>
+      <div class="user-details">
+        <h2>{{ user?.username }}</h2>
+        <p class="user-email">{{ user?.email }}</p>
+        <span class="user-role">Utilisateur</span>
+      </div>
+    </div>
+
+    <div class="dashboard-sections">
+      <div class="section-card">
+        <h3>📊 Mes Statistiques</h3>
+        <p>Consultez vos statistiques personnelles</p>
+        <button class="section-button">Voir les statistiques</button>
+      </div>
+
+      <div class="section-card">
+        <h3>⚙️ Paramètres</h3>
+        <p>Gérez vos paramètres de compte</p>
+        <button class="section-button" (click)="goToSettings()">
+          Modifier les paramètres
+        </button>
+      </div>
+
+      <div class="section-card">
+        <h3>🎬 Recherche de Films</h3>
+        <p>Découvrez et gérez votre collection de films</p>
+        <button class="section-button" (click)="goToMovieSearch()">
+          Rechercher des films
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

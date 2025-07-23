@@ -1,0 +1,132 @@
+@import '../../../_theme';
+
+.dashboard-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  padding-top: 20px;
+}
+
+.dashboard-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.user-card {
+  @extend .card;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  &.admin-avatar {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  }
+  .avatar-text {
+    color: white;
+    font-size: 32px;
+    font-weight: 600;
+  }
+}
+
+.user-details {
+  h2 {
+    @extend .title-md;
+    margin: 0 0 8px 0;
+  }
+  .user-email {
+    color: #666;
+    font-size: 16px;
+    margin: 0 0 8px 0;
+  }
+  .user-role {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    &.admin-role {
+      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+      color: white;
+    }
+  }
+}
+
+.dashboard-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.section-card {
+  @extend .card;
+  text-align: center;
+  transition: transform 0.3s ease;
+  &.admin-card {
+    border-left: 4px solid #e74c3c;
+  }
+  &:hover {
+    transform: translateY(-5px);
+  }
+  h3 {
+    @extend .title-md;
+    margin: 0 0 12px 0;
+  }
+  p {
+    color: #666;
+    font-size: 14px;
+    margin: 0 0 20px 0;
+    line-height: 1.6;
+  }
+  .section-button {
+    @extend .btn;
+    font-size: 16px;
+    padding: 14px;
+    margin-top: 10px;
+    &.admin-button {
+      background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+      color: white;
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+      }
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .user-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .dashboard-sections {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  .dashboard-content {
+    padding: 10px 2px;
+  }
+  .user-card {
+    padding: 10px;
+  }
+  .section-card {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+}

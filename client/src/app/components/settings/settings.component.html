@@ -1,0 +1,256 @@
+<div class="settings-container">
+  <div class="settings-header">
+    <h1>Paramètres du compte</h1>
+    <p>Gérez vos informations personnelles et votre sécurité</p>
+  </div>
+
+  <div class="settings-content">
+    <div class="settings-section">
+      <div class="section-header">
+        <div class="section-icon">👤</div>
+        <div class="section-info">
+          <h2>Informations du profil</h2>
+          <p>Modifiez votre nom d'utilisateur et votre email</p>
+        </div>
+      </div>
+
+      <form
+        [formGroup]="profileForm"
+        (ngSubmit)="updateProfile()"
+        class="settings-form"
+      >
+        <div class="form-group">
+          <label for="username">Nom d'utilisateur</label>
+          <input
+            type="text"
+            id="username"
+            formControlName="username"
+            placeholder="Entrez votre nom d'utilisateur"
+            [class.error]="
+              profileForm.get('username')?.invalid &&
+              profileForm.get('username')?.touched
+            "
+          />
+          <div
+            class="error-message"
+            *ngIf="
+              profileForm.get('username')?.invalid &&
+              profileForm.get('username')?.touched
+            "
+          >
+            <span *ngIf="profileForm.get('username')?.errors?.['required']"
+              >Le nom d'utilisateur est requis</span
+            >
+            <span *ngIf="profileForm.get('username')?.errors?.['minlength']"
+              >Le nom d'utilisateur doit contenir au moins 3 caractères</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="Entrez votre email"
+            [class.error]="
+              profileForm.get('email')?.invalid &&
+              profileForm.get('email')?.touched
+            "
+          />
+          <div
+            class="error-message"
+            *ngIf="
+              profileForm.get('email')?.invalid &&
+              profileForm.get('email')?.touched
+            "
+          >
+            <span *ngIf="profileForm.get('email')?.errors?.['required']"
+              >L'email est requis</span
+            >
+            <span *ngIf="profileForm.get('email')?.errors?.['email']"
+              >Veuillez entrer un email valide</span
+            >
+          </div>
+        </div>
+
+        <div class="success-message" *ngIf="profileSuccessMessage">
+          {{ profileSuccessMessage }}
+        </div>
+
+        <div class="error-message server-error" *ngIf="profileErrorMessage">
+          {{ profileErrorMessage }}
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="profileForm.invalid || loading"
+          class="save-button"
+        >
+          <span *ngIf="!loading">Sauvegarder les modifications</span>
+          <span *ngIf="loading">Sauvegarde en cours...</span>
+        </button>
+      </form>
+    </div>
+
+    <div class="settings-section">
+      <div class="section-header">
+        <div class="section-icon">🔒</div>
+        <div class="section-info">
+          <h2>Changer le mot de passe</h2>
+          <p>Modifiez votre mot de passe pour sécuriser votre compte</p>
+        </div>
+      </div>
+
+      <form
+        [formGroup]="passwordForm"
+        (ngSubmit)="changePassword()"
+        class="settings-form"
+      >
+        <div class="form-group">
+          <label for="currentPassword">Mot de passe actuel</label>
+          <input
+            type="password"
+            id="currentPassword"
+            formControlName="currentPassword"
+            placeholder="Entrez votre mot de passe actuel"
+            [class.error]="
+              passwordForm.get('currentPassword')?.invalid &&
+              passwordForm.get('currentPassword')?.touched
+            "
+          />
+          <div
+            class="error-message"
+            *ngIf="
+              passwordForm.get('currentPassword')?.invalid &&
+              passwordForm.get('currentPassword')?.touched
+            "
+          >
+            <span
+              *ngIf="passwordForm.get('currentPassword')?.errors?.['required']"
+              >Le mot de passe actuel est requis</span
+            >
+            <span
+              *ngIf="passwordForm.get('currentPassword')?.errors?.['minlength']"
+              >Le mot de passe doit contenir au moins 6 caractères</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="newPassword">Nouveau mot de passe</label>
+          <input
+            type="password"
+            id="newPassword"
+            formControlName="newPassword"
+            placeholder="Entrez votre nouveau mot de passe"
+            [class.error]="
+              passwordForm.get('newPassword')?.invalid &&
+              passwordForm.get('newPassword')?.touched
+            "
+          />
+          <div
+            class="error-message"
+            *ngIf="
+              passwordForm.get('newPassword')?.invalid &&
+              passwordForm.get('newPassword')?.touched
+            "
+          >
+            <span *ngIf="passwordForm.get('newPassword')?.errors?.['required']"
+              >Le nouveau mot de passe est requis</span
+            >
+            <span *ngIf="passwordForm.get('newPassword')?.errors?.['minlength']"
+              >Le mot de passe doit contenir au moins 6 caractères</span
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            placeholder="Confirmez votre nouveau mot de passe"
+            [class.error]="
+              passwordForm.get('confirmPassword')?.invalid &&
+              passwordForm.get('confirmPassword')?.touched
+            "
+          />
+          <div
+            class="error-message"
+            *ngIf="
+              passwordForm.get('confirmPassword')?.invalid &&
+              passwordForm.get('confirmPassword')?.touched
+            "
+          >
+            <span
+              *ngIf="passwordForm.get('confirmPassword')?.errors?.['required']"
+              >La confirmation du mot de passe est requise</span
+            >
+            <span
+              *ngIf="
+                passwordForm.get('confirmPassword')?.errors?.[
+                  'passwordMismatch'
+                ]
+              "
+              >Les mots de passe ne correspondent pas</span
+            >
+          </div>
+        </div>
+
+        <div class="success-message" *ngIf="passwordSuccessMessage">
+          {{ passwordSuccessMessage }}
+        </div>
+
+        <div class="error-message server-error" *ngIf="passwordErrorMessage">
+          {{ passwordErrorMessage }}
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="passwordForm.invalid || loading"
+          class="save-button password-button"
+        >
+          <span *ngIf="!loading">Changer le mot de passe</span>
+          <span *ngIf="loading">Modification en cours...</span>
+        </button>
+      </form>
+    </div>
+
+    <div class="settings-section">
+      <div class="section-header">
+        <div class="section-icon">ℹ️</div>
+        <div class="section-info">
+          <h2>Informations du compte</h2>
+          <p>Détails de votre compte</p>
+        </div>
+      </div>
+
+      <div class="account-info">
+        <div class="info-item">
+          <span class="info-label">Nom d'utilisateur :</span>
+          <span class="info-value">{{ user?.username }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Email :</span>
+          <span class="info-value">{{ user?.email }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Rôle :</span>
+          <span
+            class="info-value role-badge"
+            [class.admin-role]="user?.role === 'ADMIN'"
+          >
+            {{ user?.role === "ADMIN" ? "Administrateur" : "Utilisateur" }}
+          </span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">ID du compte :</span>
+          <span class="info-value">{{ user?.id }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

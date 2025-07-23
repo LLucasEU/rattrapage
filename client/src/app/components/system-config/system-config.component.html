@@ -1,0 +1,68 @@
+<div class="system-config-container">
+  <h2>⚙️ Configuration Système & Accessibilité</h2>
+  <p>Améliorez votre expérience en personnalisant l'accessibilité de l'interface selon les recommandations RGAA.</p>
+
+  <form (ngSubmit)="savePreferences()" #configForm="ngForm">
+    <div class="form-group">
+      <label for="fontSize">
+        Taille de police :
+        <select id="fontSize" [(ngModel)]="formState.fontSize" name="fontSize">
+          <option value="normal">Normale</option>
+          <option value="large">Grande</option>
+          <option value="xlarge">Très grande</option>
+        </select>
+      </label>
+      <span class="help-text">Agrandit la taille du texte sur tout le site.</span>
+    </div>
+    <div class="form-group">
+      <label for="darkModeToggle">
+        <input type="checkbox" id="darkModeToggle" [(ngModel)]="formState.darkMode" name="darkMode" />
+        Activer le mode sombre
+      </label>
+      <span class="help-text">Affiche l'interface avec un fond sombre et des couleurs adaptées.</span>
+    </div>
+    <div class="form-group">
+      <label for="colorBlindMode">
+        <input type="checkbox" id="colorBlindMode" [(ngModel)]="formState.colorBlindMode" name="colorBlindMode" />
+        Activer le mode daltonien
+      </label>
+      <span class="help-text">Utilise une palette de couleurs adaptée pour les personnes daltoniennes.</span>
+    </div>
+    <div class="form-group">
+      <label for="dyslexiaFont">
+        <input type="checkbox" id="dyslexiaFont" [(ngModel)]="formState.dyslexiaFont" name="dyslexiaFont" />
+        Utiliser une police adaptée à la dyslexie
+      </label>
+      <span class="help-text">Active la police OpenDyslexic, spécialement conçue pour les personnes dyslexiques.</span>
+    </div>
+    <div class="form-group">
+      <label for="letterSpacing">
+        Espacement des lettres :
+        <select id="letterSpacing" [(ngModel)]="formState.letterSpacing" name="letterSpacing">
+          <option value="normal">Normal</option>
+          <option value="wide">Élargi</option>
+          <option value="extra-wide">Très élargi</option>
+        </select>
+      </label>
+      <span class="help-text">Augmente l'espacement entre les lettres pour faciliter la lecture.</span>
+    </div>
+    <div class="form-group">
+      <label for="lineSpacing">
+        Espacement des lignes :
+        <select id="lineSpacing" [(ngModel)]="formState.lineSpacing" name="lineSpacing">
+          <option value="normal">Normal</option>
+          <option value="wide">Élargi</option>
+          <option value="extra-wide">Très élargi</option>
+        </select>
+      </label>
+      <span class="help-text">Augmente l'espacement entre les lignes pour réduire la fatigue visuelle.</span>
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-top:1.5rem;">Sauvegarder</button>
+    <div *ngIf="successMessage" class="success-message" style="margin-top:1rem;">{{ successMessage }}</div>
+  </form>
+
+  <div class="rgaa-info">
+    <h3>À propos du RGAA</h3>
+    <p>Le RGAA (Référentiel Général d'Amélioration de l'Accessibilité) vise à rendre les services numériques accessibles à tous, notamment aux personnes en situation de handicap. <a href="https://accessibilite.numerique.gouv.fr" target="_blank" rel="noopener">En savoir plus</a></p>
+  </div>
+</div> 

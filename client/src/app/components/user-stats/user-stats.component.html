@@ -1,0 +1,48 @@
+<div class="user-stats-container">
+  <h2>📊 Mes statistiques</h2>
+  <div class="filters-section">
+    <form class="filters-form" (ngSubmit)="onFilterChange()">
+      <label>
+        Période :
+        <select [(ngModel)]="selectedPeriod" name="period">
+          <option *ngFor="let period of periods" [value]="period.value">{{ period.label }}</option>
+        </select>
+      </label>
+      <label>
+        Genre :
+        <select [(ngModel)]="selectedGenre" name="genre">
+          <option value="all">Tous</option>
+          <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+        </select>
+      </label>
+      <label>
+        Note :
+        <select [(ngModel)]="selectedRating" name="rating">
+          <option *ngFor="let rating of ratings" [value]="rating.value">{{ rating.label }}</option>
+        </select>
+      </label>
+      <button type="submit">Filtrer</button>
+      <button type="button" (click)="clearFilters()">Effacer les filtres</button>
+    </form>
+  </div>
+  <button type="button" class="export-pdf-btn btn btn-accent" (click)="exportPDF()" [disabled]="exportingPDF" aria-label="Exporter les statistiques en PDF">
+    <span *ngIf="!exportingPDF">⬇️ Exporter en PDF</span>
+    <span *ngIf="exportingPDF"><span class="spinner"></span> Export en cours…</span>
+  </button>
+  <div class="charts-section">
+    <div class="chart-block">
+      <canvas baseChart
+        [data]="pieChartData"
+        [options]="pieChartOptions"
+        type="pie">
+      </canvas>
+    </div>
+    <div class="chart-block">
+      <canvas baseChart
+        [data]="barChartData"
+        [options]="barChartOptions"
+        type="bar">
+      </canvas>
+    </div>
+  </div>
+</div>

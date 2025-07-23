@@ -1,0 +1,46 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <a routerLink="/" class="brand-link">
+        <span class="brand-icon">🚀</span>
+        <span class="brand-text">Rattrapage</span>
+      </a>
+    </div>
+
+    <div class="navbar-menu">
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link"
+      >
+        Accueil
+      </a>
+
+      <ng-container *ngIf="isLoggedIn">
+        <a (click)="goToDashboard()" class="nav-link"> Dashboard </a>
+      </ng-container>
+    </div>
+
+    <div class="navbar-auth">
+      <ng-container *ngIf="!isLoggedIn; else userMenu">
+        <a routerLink="/login" class="auth-link login-link"> Connexion </a>
+        <a routerLink="/register" class="auth-link register-link">
+          Inscription
+        </a>
+      </ng-container>
+
+      <ng-template #userMenu>
+        <div class="user-menu">
+          <div class="user-info">
+            <div class="user-avatar">
+              {{ getUserInitial() }}
+            </div>
+            <span class="user-name">{{ getUserName() }}</span>
+          </div>
+          <button (click)="logout()" class="logout-button">Déconnexion</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</nav>
