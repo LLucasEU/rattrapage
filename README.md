@@ -90,9 +90,3 @@ rattrapage/
 - Authentification JWT, rôles utilisateur/admin
 - Accès restreint aux données personnelles
 - Prévu pour HTTPS en production
-
-## Contribution
-Pull requests bienvenues. Merci de respecter la structure modulaire et les bonnes pratiques RGAA.
-
-## Licence
-MIT
