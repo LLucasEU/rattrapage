@@ -13,27 +13,52 @@ Rattrapage est une application web de gestion de films permettant à chaque util
 - Page d’accessibilité (contraste, taille de police, alternatives visuelles)
 - Sécurité des accès et respect du RGAA
 
-## Installation
+## Installation et lancement rapide
 
 ### Prérequis
-- Node.js >= 16
-- Java 17
-- Maven
+- [Docker](https://www.docker.com/products/docker-desktop)
+- [Docker Compose](https://docs.docker.com/compose/)
+- (Optionnel) [Make](https://www.gnu.org/software/make/) pour simplifier les commandes
 
-### Backend (Spring Boot)
+### Lancer toute l'application avec Make
+
+À la racine du projet, il suffit d'exécuter :
+
 ```bash
-cd server
-./mvnw spring-boot:run
+make up
 ```
 
-### Frontend (Angular)
+Cela va :
+- Construire les images Docker du backend, du frontend et de la base de données
+- Lancer tous les services (MySQL, API Spring Boot, Angular)
+
+Pour arrêter tous les services :
 ```bash
-cd client
-npm install
-npm start
+make down
 ```
 
-L’application sera accessible sur http://localhost:4200
+Pour redémarrer :
+```bash
+make restart
+```
+
+Pour voir les logs :
+```bash
+make logs
+```
+
+### Lancer manuellement avec Docker Compose
+
+Si vous n'avez pas Make, vous pouvez utiliser directement Docker Compose :
+
+```bash
+docker-compose up --build
+```
+
+L'application sera accessible sur :
+- Frontend : http://localhost:4200
+- Backend (API) : http://localhost:8080
+- MySQL : port 3306
 
 ## Structure du projet
 ```
